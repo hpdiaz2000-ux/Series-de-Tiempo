@@ -37,7 +37,7 @@ El proyecto sigue un flujo completo de forecasting de punta a punta:
 | Benchmark (Seasonal Naive) | 861,1 | 898.179,0 | 947,7 | 7,40 | No aplica | No aplica |
 | ARIMA | 1.239,8 | 2.819.485,0 | 1.679,0 | 9,53 | 964,8 | 977,3 |
 
-![Comparación de modelos](images/comparacion_modelos.png)
+![Comparación de modelos](comparacion_modelos.png)
 
 **¿Por qué ganó Holt-Winters?** No fue solo por tener el menor error: mantuvo un error estable a lo largo de todo el horizonte de prueba, es simple e interpretable (nivel + tendencia + estacionalidad), y tiene sentido para la lógica real del negocio — una lección clave del proyecto es que el modelo más sofisticado (SARIMA, LightGBM) no siempre generaliza mejor que uno simple cuando la serie es corta y el patrón estacional es muy regular.
 
@@ -48,12 +48,12 @@ Este proyecto no se queda en gráficos estáticos — incluye dos piezas interac
 **1. Backtesting walk-forward animado**
 Simula cómo se hubiera comportado el modelo "en producción": en varios puntos del pasado, se entrena solo con los datos disponibles hasta ese momento, se pronostican los siguientes 6 meses, y se compara contra lo que realmente ocurrió — con controles de play/pausa/loop para recorrer cada punto en el tiempo.
 
-![Backtesting walk-forward](images/backtesting_animacion.png)
+![Backtesting walk-forward](backtesting_animacion.png)
 
 **2. Pronóstico final interactivo**
 Histórico + proyección 2026 + intervalo de confianza del 90%, con zoom, hover y range slider.
 
-![Pronóstico final](images/pronostico_final.png)
+![Pronóstico final](pronostico_final.png)
 
 > 💡 Para reproducir la interactividad real (no solo la imagen), corré el notebook en Google Colab o Jupyter — el HTML/JS queda embebido en las celdas.
 
