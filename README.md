@@ -29,15 +29,15 @@ El proyecto sigue un flujo completo de forecasting de punta a punta:
 
 ## 🤖 Modelos comparados
 
-| Modelo | MAE | RMSE | MAPE | Observación |
-|---|---|---|---|---|
-| Benchmark (seasonal naive) | — | — | — | Punto de referencia simple |
-| **Holt-Winters** ⭐ | **302** | **344** | **2,6%** | **Modelo seleccionado** |
-| ARIMA | — | — | — | Sin componente estacional explícito |
-| SARIMA | — | 734 | — | Mayor error y menos estable |
-| LightGBM con rezagos | — | 815 | — | Mayor error, menos interpretable |
+| Modelo | MAE | MSE | RMSE | MAPE (%) | AIC | BIC |
+|---|---|---|---|---|---|---|
+| **Holt-Winters** ⭐ | **330,0** | **149.057,1** | **386,1** | **2,84** | No aplica | No aplica |
+| SARIMA | 538,5 | 538.694,4 | 734,0 | 4,65 | 582,9 | 586,0 |
+| LightGBM (rezagos) | 668,0 | 664.243,3 | 815,0 | 5,54 | No aplica | No aplica |
+| Benchmark (Seasonal Naive) | 861,1 | 898.179,0 | 947,7 | 7,40 | No aplica | No aplica |
+| ARIMA | 1.239,8 | 2.819.485,0 | 1.679,0 | 9,53 | 964,8 | 977,3 |
 
-*(Completa la columna de MAE/MAPE de ARIMA/SARIMA/LightGBM con tus valores exactos del notebook antes de subir el repo — dejé el foco en el modelo ganador.)*
+![Comparación de modelos](images/comparacion_modelos.png)
 
 **¿Por qué ganó Holt-Winters?** No fue solo por tener el menor error: mantuvo un error estable a lo largo de todo el horizonte de prueba, es simple e interpretable (nivel + tendencia + estacionalidad), y tiene sentido para la lógica real del negocio — una lección clave del proyecto es que el modelo más sofisticado (SARIMA, LightGBM) no siempre generaliza mejor que uno simple cuando la serie es corta y el patrón estacional es muy regular.
 
@@ -49,13 +49,11 @@ Este proyecto no se queda en gráficos estáticos — incluye dos piezas interac
 Simula cómo se hubiera comportado el modelo "en producción": en varios puntos del pasado, se entrena solo con los datos disponibles hasta ese momento, se pronostican los siguientes 6 meses, y se compara contra lo que realmente ocurrió — con controles de play/pausa/loop para recorrer cada punto en el tiempo.
 
 ![Backtesting walk-forward](images/backtesting_animacion.png)
-*(Reemplaza esta imagen por una captura de pantalla de la animación corriendo en tu notebook)*
 
 **2. Pronóstico final interactivo**
 Histórico + proyección 2026 + intervalo de confianza del 90%, con zoom, hover y range slider.
 
 ![Pronóstico final](images/pronostico_final.png)
-*(Reemplaza esta imagen por una captura de pantalla del gráfico de Plotly)*
 
 > 💡 Para reproducir la interactividad real (no solo la imagen), corré el notebook en Google Colab o Jupyter — el HTML/JS queda embebido en las celdas.
 
